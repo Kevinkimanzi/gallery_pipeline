@@ -1,0 +1,34 @@
+
+    
+pipeline {
+    agent any
+
+
+    tools {
+        nodejs "Node-JS"
+    }
+
+    stages {
+        stage('Cloning') {
+            steps {
+                echo 'Cloning repository'
+                // Add code here to clone your repository
+                git 'git@github.com:Kevinkimanzi/gallery_pipeline.git'
+            }
+        }
+
+        stage('Installation') {
+            steps {
+                echo 'Installing npm'
+                // Run npm install to install project dependencies
+                sh 'npm install'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                // Run npm tests to run the tests defined
+                sh 'npm test'
+            }
+        }
+    }
