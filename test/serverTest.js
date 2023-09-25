@@ -1,26 +1,22 @@
-process.env.NODE_ENV = 'test';   
+process.env.NODE_ENV = 'test';
 
-var chai = require('chai');
-var chaiHttp = require('chai-http');
-
-var server = require('../server');
-var should = chai.should();
-var expect = chai.expect;
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const app = require('../app'); // Assuming app.js is one directory above
 
 chai.use(chaiHttp);
+const expect = chai.expect;
 
-describe('Photos', function(){
-
-
-    it('should list ALL photos on / GET', function(done){
-        this.timeout(60000);
-        chai.request(server)
+describe('Photos', function () {
+    it('should list ALL photos on / GET', function (done) {
+      chai.request(app)
         .get('/')
-        .end(function(err,res){
-            res.should.have.status(200);
-            res.should.be.html;
-            res.body.should.be.a('object')
-            done();
-        })
+        .end(function (err, res) {
+          expect(err).to.be.null;
+          expect(res).to.have.status(200);
+          expect(res).to.be.html;
+          expect(res.text).to.equal('Hello, World!'); // Assuming your root route sends this text
+          done();
+        });
     });
-})
+  });

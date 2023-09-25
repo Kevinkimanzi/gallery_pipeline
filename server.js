@@ -6,9 +6,9 @@ const path = require('path');
 // Define routes
 let index = require('./routes/index');
 let image = require('./routes/image');
-
+require('dotenv').config();
 // connecting the database
-let mongodb_url = 'mongodb://localhost:27017/';
+let mongodb_url = 'mongodb+srv://kevinkilonzi:Kimanzi1@I63@gallery.wc344.mongodb.net/darkroom?retryWrites=true&w=majority';
 let dbName = 'darkroom';
 mongoose.connect(`${mongodb_url}${dbName}`,{ useNewUrlParser: true , useUnifiedTopology: true }, (err)=>{
     if (err) console.log(err)
