@@ -43,6 +43,20 @@ pipeline {
         }
 
         
-    }
+    post {
+        failure {
+            // Send a Slack notification on build failure
+            slackSend(channel: '#general', color: 'danger', message: "Gallery build project failed!KINDLY CHECK. Build #${env.BUILD_NUMBER} Build link: ${env.BUILD_URL} ")
+
+            mail to: "kevin.kilonzi@student.moringaschool.com",
+            subject: "Build #${env.BUILD_NUMBER} Failed",
+            body: "Build #${env.BUILD_NUMBER} failed. Build link: ${env.BUILD_URL}"
+        }
+        success {
+            // Send a Slack notification on build success
+            slackSend(channel: '#general', color: 'good', message: "Gallery project passed 😊. Build #${env.BUILD_NUMBER} was successful.")
+            
+        }
+    }}
     }
 }
